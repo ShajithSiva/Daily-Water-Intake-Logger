@@ -16,11 +16,22 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvRegister;
 
     private DatabaseHelper databaseHelper;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Initialize SessionManager
+        sessionManager = new SessionManager(this);
+
+        // If already logged in, skip login screen
+        if (sessionManager.isLoggedIn()) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            finish();
+            return;
+        }
 
         // Bind UI elements
         etUsername = findViewById(R.id.etUsername);
@@ -35,10 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> handleLogin());
 
         // Register text click → go to Register screen
-        tvRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        });
+        tvRegister.setOnClickListener(v ->
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class))
+        );
     }
 
     private void handleLogin() {
@@ -56,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // 🔐 Hash the entered password before checking
+        // 🔐 Hash the entered password
         String hashedPassword = PasswordUtils.hashPassword(password);
 
         if (hashedPassword == null) {
@@ -68,6 +78,9 @@ public class LoginActivity extends AppCompatActivity {
         int userId = databaseHelper.loginUser(username, hashedPassword);
 
         if (userId != -1) {
+            // Save session
+            sessionManager.createLoginSession(userId);
+
             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
 
             // Navigate to Home screen
