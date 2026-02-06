@@ -66,8 +66,8 @@
             android:textAllCaps="false"
             android:textSize="16sp"
             android:textColor="@android:color/white"
-            android:backgroundTint="#6C72E6"
-            android:cornerRadius="28dp" />
+            android:background="@drawable/button_bg" />
+
 
         <!-- Register Text -->
         <TextView
