@@ -20,17 +20,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Set layout
         setContentView(R.layout.activity_login);
 
-        // Initialize views
+        // Bind UI elements
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvRegister = findViewById(R.id.tvRegister);
 
-        // Initialize database
+        // Initialize database helper
         databaseHelper = new DatabaseHelper(this);
 
         // Login button click
@@ -58,13 +56,21 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        // 🔐 Hash the entered password before checking
+        String hashedPassword = PasswordUtils.hashPassword(password);
+
+        if (hashedPassword == null) {
+            Toast.makeText(this, "Error processing password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Check credentials from database
-        int userId = databaseHelper.loginUser(username, password);
+        int userId = databaseHelper.loginUser(username, hashedPassword);
 
         if (userId != -1) {
             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
 
-            // Go to Home screen
+            // Navigate to Home screen
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             intent.putExtra("USER_ID", userId);
             startActivity(intent);
