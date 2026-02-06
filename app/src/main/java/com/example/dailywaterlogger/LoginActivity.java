@@ -11,45 +11,55 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText etUsername, etPassword;
-    Button btnLogin;
-    TextView tvRegister;
+    private EditText etUsername, etPassword;
+    private Button btnLogin;
+    private TextView tvRegister;
 
-    DatabaseHelper db;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set layout
         setContentView(R.layout.activity_login);
 
-        // Link UI
+        // Initialize views
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvRegister = findViewById(R.id.tvRegister);
 
-        // Database
-        db = new DatabaseHelper(this);
+        // Initialize database
+        databaseHelper = new DatabaseHelper(this);
 
-        btnLogin.setOnClickListener(v -> loginUser());
+        // Login button click
+        btnLogin.setOnClickListener(v -> handleLogin());
 
-        tvRegister.setOnClickListener(v ->
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class))
-        );
+        // Register text click → go to Register screen
+        tvRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        });
     }
 
-    private void loginUser() {
+    private void handleLogin() {
         String username = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        // Validation
-        if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+        // Input validation
+        if (username.isEmpty()) {
+            etUsername.setError("Username required");
             return;
         }
 
-        // Check login from database
-        int userId = db.loginUser(username, password);
+        if (password.isEmpty()) {
+            etPassword.setError("Password required");
+            return;
+        }
+
+        // Check credentials from database
+        int userId = databaseHelper.loginUser(username, password);
 
         if (userId != -1) {
             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();

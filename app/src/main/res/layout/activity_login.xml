@@ -18,7 +18,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="80dp"
-            android:src="@drawable/water_logo"
+            android:src="@mipmap/ic_launcher"
             android:contentDescription="App Logo" />
 
         <!-- Welcome Text -->
