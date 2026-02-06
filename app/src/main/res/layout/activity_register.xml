@@ -12,37 +12,26 @@
         android:gravity="center_horizontal"
         android:padding="24dp">
 
-        <!-- App Icon -->
-        <ImageView
-            android:id="@+id/imgLogo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="80dp"
-            android:src="@mipmap/ic_launcher"
-            android:contentDescription="App Logo" />
-
-        <!-- Welcome Text -->
+        <!-- Title -->
         <TextView
-            android:id="@+id/tvWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome Back!"
+            android:text="Create Account"
             android:textSize="26sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="32dp" />
 
-        <!-- Username / Email -->
+        <!-- Username -->
         <EditText
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="32dp"
-            android:hint="Username / Email"
+            android:hint="Username"
             android:padding="16dp"
-            android:drawableStart="@android:drawable/ic_dialog_email"
             android:background="@drawable/edittext_bg"
-            android:inputType="textEmailAddress" />
+            android:inputType="textPersonName" />
 
         <!-- Password -->
         <EditText
@@ -52,29 +41,37 @@
             android:layout_marginTop="16dp"
             android:hint="Password"
             android:padding="16dp"
-            android:drawableStart="@android:drawable/ic_lock_lock"
             android:background="@drawable/edittext_bg"
             android:inputType="textPassword" />
 
-        <!-- Login Button -->
+        <!-- Confirm Password -->
+        <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:hint="Confirm Password"
+            android:padding="16dp"
+            android:background="@drawable/edittext_bg"
+            android:inputType="textPassword" />
+
+        <!-- Register Button -->
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="32dp"
-            android:text="Login"
+            android:text="Register"
             android:textAllCaps="false"
-            android:textSize="16sp"
             android:textColor="@android:color/white"
             android:background="@drawable/button_bg" />
 
-
-        <!-- Register Text -->
+        <!-- Back to Login -->
         <TextView
-            android:id="@+id/tvRegister"
+            android:id="@+id/tvBackToLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="Back to Login"
             android:textSize="16sp"
             android:textColor="#6C72E6"
             android:layout_marginTop="24dp" />
