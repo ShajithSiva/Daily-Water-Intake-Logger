@@ -14,6 +14,8 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister;
     TextView tvBackToLogin;
 
+    DatabaseHelper db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +28,10 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         tvBackToLogin = findViewById(R.id.tvBackToLogin);
 
-        // Register button
-        btnRegister.setOnClickListener(v -> registerUser());
+        // Database
+        db = new DatabaseHelper(this);
 
-        // Back to Login
+        btnRegister.setOnClickListener(v -> registerUser());
         tvBackToLogin.setOnClickListener(v -> finish());
     }
 
@@ -38,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         String password = etPassword.getText().toString().trim();
         String confirm = etConfirmPassword.getText().toString().trim();
 
-        // Basic validation
+        // Validation
         if (username.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
             Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
             return;
@@ -49,8 +51,14 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        // TEMP success (database will be added later)
-        Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
-        finish(); // Go back to Login
+        // Save to database
+        boolean success = db.registerUser(username, password);
+
+        if (success) {
+            Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
+            finish(); // back to login
+        } else {
+            Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
+        }
     }
 }
