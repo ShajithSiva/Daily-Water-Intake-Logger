@@ -15,43 +15,53 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     TextView tvRegister;
 
+    DatabaseHelper db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Link UI components
+        // Link UI
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvRegister = findViewById(R.id.tvRegister);
 
-        // Login button click
+        // Database
+        db = new DatabaseHelper(this);
+
         btnLogin.setOnClickListener(v -> loginUser());
 
-        // Go to Register screen
-        tvRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        });
+        tvRegister.setOnClickListener(v ->
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class))
+        );
     }
 
     private void loginUser() {
         String username = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        // Basic validation
+        // Validation
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // TEMP login success (database will be added later)
-        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+        // Check login from database
+        int userId = db.loginUser(username, password);
 
-        // Navigate to Home screen
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-        startActivity(intent);
-        finish();
+        if (userId != -1) {
+            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+
+            // Go to Home screen
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.putExtra("USER_ID", userId);
+            startActivity(intent);
+            finish();
+
+        } else {
+            Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+        }
     }
 }
