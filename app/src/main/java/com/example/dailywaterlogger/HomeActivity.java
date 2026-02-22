@@ -11,11 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class HomeActivity extends AppCompatActivity {
 
     SessionManager sessionManager;
-    Button btnLogout, btnAddWater;
-    TextView txtWaterCount;
+
+    Button btnAddWater;
+    TextView txtWaterCount, txtPercentage, txtUsername;
     ProgressBar progressBar;
 
-    int currentGlasses = 5;   // starting value
+    int currentGlasses = 5;
     int maxGlasses = 8;
 
     @Override
@@ -25,33 +26,31 @@ public class HomeActivity extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
 
-        // Initialize views
-        btnLogout = findViewById(R.id.btnLogout);
-        btnAddWater = findViewById(R.id.btnAddWater);
+        txtUsername = findViewById(R.id.txtUsername);
         txtWaterCount = findViewById(R.id.txtWaterCount);
+        txtPercentage = findViewById(R.id.txtPercentage);
         progressBar = findViewById(R.id.progressBar);
+        btnAddWater = findViewById(R.id.btnAddWater);
+
+        txtUsername.setText("John Doe"); // Later connect to database
 
         updateUI();
 
-        // Add Water button logic
         btnAddWater.setOnClickListener(v -> {
             if (currentGlasses < maxGlasses) {
                 currentGlasses++;
                 updateUI();
             }
         });
-
-        // Logout logic (your original code)
-        btnLogout.setOnClickListener(v -> {
-            sessionManager.logout();
-            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-            finish();
-        });
     }
 
     private void updateUI() {
+
         txtWaterCount.setText(currentGlasses + " / " + maxGlasses + " glasses");
+
         int progress = (currentGlasses * 100) / maxGlasses;
         progressBar.setProgress(progress);
+
+        txtPercentage.setText("You're " + progress + "% of the way to your goal!");
     }
 }
