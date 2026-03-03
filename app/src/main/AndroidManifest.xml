@@ -24,6 +24,9 @@
             android:name=".HomeActivity"
             android:exported="false" />
 
+        <activity android:name=".LogWaterActivity"/>
+        <activity android:name=".HistoryActivity"/>
+
     </application>
 
 </manifest>

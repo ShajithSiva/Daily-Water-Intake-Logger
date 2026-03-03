@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+home_page
     android:padding="20dp"
     android:background="#F4F6FA">
 
@@ -20,5 +21,35 @@
         android:text="History records will appear here..."
         android:textSize="16sp"
         android:textColor="#666666" />
+
+    android:background="#E3F2FD">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📋 Water Intake History"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#1565C0"
+        android:padding="20dp"/>
+
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No history yet. Start logging water! 💧"
+        android:textSize="16sp"
+        android:textColor="#888"
+        android:gravity="center"
+        android:padding="40dp"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/listViewHistory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:dividerHeight="1dp"/>
+main
 
 </LinearLayout>
