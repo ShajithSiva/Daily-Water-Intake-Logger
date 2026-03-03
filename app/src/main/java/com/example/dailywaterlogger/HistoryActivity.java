@@ -1,20 +1,14 @@
 package com.example.dailywaterlogger;
 
-home_page
-import android.os.Bundle;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-public class HistoryActivity extends AppCompatActivity {
-
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,15 +17,10 @@ public class HistoryActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
     private SessionManager sessionManager;
 
-main
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-home_page
-    }
-}
-
 
         databaseHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
@@ -61,7 +50,7 @@ home_page
                 android.R.layout.simple_list_item_1,
                 historyList
         );
+
         listViewHistory.setAdapter(adapter);
     }
 }
-main

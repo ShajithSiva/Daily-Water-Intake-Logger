@@ -23,39 +23,32 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize SessionManager
+        databaseHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
 
-        // If already logged in, skip login screen
         if (sessionManager.isLoggedIn()) {
-            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            startActivity(new Intent(LoginActivity.this, LogWaterActivity.class));
             finish();
             return;
         }
 
-        // Bind UI elements
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvRegister = findViewById(R.id.tvRegister);
 
-        // Initialize database helper
-        databaseHelper = new DatabaseHelper(this);
-
-        // Login button click
         btnLogin.setOnClickListener(v -> handleLogin());
 
-        // Register text click → go to Register screen
         tvRegister.setOnClickListener(v ->
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class))
         );
     }
 
     private void handleLogin() {
+
         String username = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        // Input validation
         if (username.isEmpty()) {
             etUsername.setError("Username required");
             return;
@@ -66,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // 🔐 Hash the entered password
         String hashedPassword = PasswordUtils.hashPassword(password);
 
         if (hashedPassword == null) {
@@ -74,17 +66,15 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Check credentials from database
         int userId = databaseHelper.loginUser(username, hashedPassword);
 
         if (userId != -1) {
-            // Save session
+
             sessionManager.createLoginSession(userId);
 
             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
 
-            // Navigate to Home screen
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            Intent intent = new Intent(LoginActivity.this, LogWaterActivity.class);
             intent.putExtra("USER_ID", userId);
             startActivity(intent);
             finish();
