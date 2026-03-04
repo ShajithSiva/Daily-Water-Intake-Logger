@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dailywaterlogger">
 
+    ```
     <application
         android:allowBackup="true"
         android:label="Daily Water Logger"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
+        <!-- Login screen (App start screen) -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -16,17 +19,22 @@
             </intent-filter>
         </activity>
 
+        <!-- Register screen -->
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
 
+        <!-- Log Water screen -->
         <activity
-            android:name=".HomeActivity"
+            android:name=".LogWaterActivity"
             android:exported="false" />
 
-        <activity android:name=".LogWaterActivity"/>
-        <activity android:name=".HistoryActivity"/>
+        <!-- History screen -->
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
 
     </application>
+    ```
 
 </manifest>
