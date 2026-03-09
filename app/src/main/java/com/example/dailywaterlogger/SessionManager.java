@@ -17,24 +17,20 @@ public class SessionManager {
         editor = preferences.edit();
     }
 
-    // Save login session
     public void createLoginSession(int userId) {
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
         editor.putInt(KEY_USER_ID, userId);
         editor.apply();
     }
 
-    // Check login status
     public boolean isLoggedIn() {
         return preferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 
-    // Get logged-in user ID
     public int getUserId() {
         return preferences.getInt(KEY_USER_ID, -1);
     }
 
-    // Logout user
     public void logout() {
         editor.clear();
         editor.apply();
