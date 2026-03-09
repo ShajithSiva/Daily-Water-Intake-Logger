@@ -23,8 +23,8 @@ public class HomeActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     // Water values
-    int currentGlasses = 5;   // Default starting value
-    int maxGlasses = 8;       // Daily goal
+    int currentGlasses = 0;   // Default starting value
+    int maxGlasses = 12;       // Daily goal
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
