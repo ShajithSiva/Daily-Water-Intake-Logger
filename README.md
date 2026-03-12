@@ -41,32 +41,47 @@ https://github.com/ShajithSiva/Daily-Water-Intake-Logger.git
 ## Project Structure
 
 ```
-DailyWaterLogger/
+## Project Structure
+Daily-Water-Intake-Logger/
 │
 ├── app/
+│   ├── manifests/
+│   │   └── AndroidManifest.xml
+│   │
 │   ├── java/com/example/dailywaterlogger/
-│   │   ├── LoginActivity.java
-│   │   ├── RegisterActivity.java
-│   │   ├── LogWaterActivity.java
-│   │   ├── HistoryActivity.java
 │   │   ├── Database.java
+│   │   ├── HistoryActivity.java
+│   │   ├── LoginActivity.java
+│   │   ├── LogWaterActivity.java
+│   │   ├── PasswordUtils.java
+│   │   ├── RegisterActivity.java
 │   │   └── SessionManager.java
 │   │
 │   ├── res/
+│   │   ├── drawable/
+│   │   │   ├── button_bg.xml
+│   │   │   ├── edittext_bg.xml
+│   │   │   ├── ic_launcher_background.xml
+│   │   │   ├── ic_launcher_foreground.xml
+│   │   │   ├── ic_water_drop.xml
+│   │   │   └── water_logo.png
+│   │   │
 │   │   ├── layout/
 │   │   │   ├── activity_login.xml
 │   │   │   ├── activity_register.xml
 │   │   │   ├── activity_log_water.xml
 │   │   │   └── activity_history.xml
 │   │   │
-│   │   ├── values/
-│   │   │   ├── colors.xml
-│   │   │   ├── strings.xml
-│   │   │   └── themes.xml
+│   │   ├── mipmap/
+│   │   │
+│   │   └── values/
+│   │       └── themes.xml
 │   │
-│   └── AndroidManifest.xml
+│   └── Gradle Scripts
 │
 └── README.md
+```
+
 ```
 
 ### Key Components
