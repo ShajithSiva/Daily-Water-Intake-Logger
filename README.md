@@ -82,6 +82,14 @@ Each water record is linked to a user using `user_id`.
 
 ---
 
+## Project Members
+
+* ICT/2022/107
+* ICT/2022/108
+* ICT/2022/109
+
+---
+
 ## Author
 
 Developed as part of an Android development project.
