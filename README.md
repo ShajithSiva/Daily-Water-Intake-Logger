@@ -8,85 +8,153 @@ Each user has their own records stored in a local SQLite database.
 
 ---
 
+## Project Repository
+
+🔗 GitHub Repository:
+https://github.com/ShajithSiva/Daily-Water-Intake-Logger.git
+
+---
+
 ## Features
 
-* User Registration and Login
-* Track daily water intake
-* Daily water goal (50 glasses)
-* Progress bar to visualize daily progress
-* Add or remove water intake
-* View water intake history
-* Separate records for each user
-* Automatic daily reset of water count
+* 👤 **User Registration and Login**
+* 💧 **Track Daily Water Intake**
+* 🎯 **Daily Water Goal (50 glasses)**
+* 📊 **Progress Bar to Visualize Daily Progress**
+* ➕ **Add Water Intake**
+* ➖ **Remove Glass if Added by Mistake**
+* 📜 **View Water Intake History**
+* 👥 **Separate Records for Each User**
+* 🔄 **Automatic Daily Reset of Water Count**
 
 ---
 
 ## Technologies Used
 
-* Java
-* Android Studio
-* SQLite Database
-* XML Layouts
+* ☕ **Java**
+* 🤖 **Android Studio**
+* 🗄 **SQLite Database**
+* 🎨 **XML Layouts**
 
 ---
 
-## App Structure
+## Project Structure
 
-### Activities
+```
+DailyWaterLogger/
+│
+├── app/
+│   ├── java/com/example/dailywaterlogger/
+│   │   ├── LoginActivity.java
+│   │   ├── RegisterActivity.java
+│   │   ├── LogWaterActivity.java
+│   │   ├── HistoryActivity.java
+│   │   ├── Database.java
+│   │   └── SessionManager.java
+│   │
+│   ├── res/
+│   │   ├── layout/
+│   │   │   ├── activity_login.xml
+│   │   │   ├── activity_register.xml
+│   │   │   ├── activity_log_water.xml
+│   │   │   └── activity_history.xml
+│   │   │
+│   │   ├── values/
+│   │   │   ├── colors.xml
+│   │   │   ├── strings.xml
+│   │   │   └── themes.xml
+│   │
+│   └── AndroidManifest.xml
+│
+└── README.md
+```
 
-* **LoginActivity** – Handles user login.
-* **RegisterActivity** – Allows new users to create an account.
-* **LogWaterActivity** – Main screen for logging water intake.
-* **HistoryActivity** – Displays water intake history.
+### Key Components
 
-### Database
+**Activities**
 
-The app uses SQLite to store data.
+* 🔐 `LoginActivity` – Handles user login
+* 📝 `RegisterActivity` – Allows users to create an account
+* 💧 `LogWaterActivity` – Main screen for logging water intake
+* 📜 `HistoryActivity` – Displays water intake history
 
-Tables:
+**Database**
 
-1. **users**
+* 🗄 `Database.java` manages the SQLite database
+* Stores users and water intake records
 
-   * user_id
-   * username
-   * password
+**SessionManager**
 
-2. **water_intake**
-
-   * intake_id
-   * user_id
-   * date
-   * glasses
-
-Each water record is linked to a user using `user_id`.
+* 🔑 Handles login session management for users
 
 ---
 
-## How It Works
+## Database Design
 
-1. User registers a new account.
-2. User logs in using their credentials.
-3. User logs the number of glasses of water consumed.
-4. The app stores the intake with the current date.
-5. The progress bar updates according to the daily goal.
-6. Users can view their past intake records in the history section.
+### users
+
+| Column   | Description             |
+| -------- | ----------------------- |
+| user_id  | Unique ID for each user |
+| username | Username for login      |
+| password | User password           |
+
+### water_intake
+
+| Column    | Description                     |
+| --------- | ------------------------------- |
+| intake_id | Unique ID for each record       |
+| user_id   | Links record to a specific user |
+| date      | Date of water intake            |
+| glasses   | Number of glasses logged        |
+
+---
+
+## How to Run the Project
+
+1. Install **Android Studio**
+2. Clone the repository
+
+```
+git clone https://github.com/ShajithSiva/Daily-Water-Intake-Logger.git
+```
+
+3. Open **Android Studio**
+4. Click **Open Project**
+5. Select the downloaded project folder
+6. Wait for **Gradle Sync** to finish
+7. Connect an **Android device** or start an **Android Emulator**
+8. Click **Run ▶** in Android Studio
+
+The application will start and you can begin tracking water intake.
+
+---
+
+## How the App Works
+
+1. A user creates an account using the **Register screen**
+2. The user logs in through the **Login screen**
+3. The **Log Water screen** allows users to add or remove glasses of water
+4. The progress bar updates according to the daily goal (50 glasses)
+5. Users can view their previous records in the **History screen**
+6. Each user's water intake is stored separately in the SQLite database
 
 ---
 
 ## Future Improvements
 
-* Water reminder notifications
-* Better UI design
-* Graphs for weekly/monthly water intake
-* Cloud data storage
+* 🔔 Water reminder notifications
+* 🎨 Improved UI design
+* 📈 Weekly and monthly intake charts
+* ☁ Cloud database integration
 
 ---
 
 ## Project Members
 
-* M. K. H. K. Madushani - ICT/2022/107
-* S.Shajith- ICT/2022/108
-* T.M.G.C.Thennakoon - ICT/2022/109
+* **M. K. H. K. Madushani** — ICT/2022/107
+* **S. Shajith** — ICT/2022/108
+* **T. M. G. C. Thennakoon** — ICT/2022/109
 
 ---
 
