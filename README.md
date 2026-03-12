@@ -84,7 +84,7 @@ Each water record is linked to a user using `user_id`.
 
 ## Project Members
 
-* ICT/2022/107
+* M. K. H. K. Madushani - ICT/2022/107
 * S.Shajith- ICT/2022/108
 * T.M.G.C.Thennakoon - ICT/2022/109
 
