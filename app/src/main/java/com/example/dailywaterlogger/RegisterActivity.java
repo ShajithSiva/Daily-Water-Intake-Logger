@@ -14,7 +14,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnRegister;
     private TextView tvBackToLogin;
 
-    private DatabaseHelper databaseHelper;
+    private Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
         tvBackToLogin = findViewById(R.id.tvBackToLogin);
 
         // Initialize database helper
-        databaseHelper = new DatabaseHelper(this);
+        database = new Database(this);
 
         // Register button click
         btnRegister.setOnClickListener(v -> registerUser());
@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // Save user to database
-        boolean isRegistered = databaseHelper.registerUser(username, hashedPassword);
+        boolean isRegistered = database.registerUser(username, hashedPassword);
 
         if (isRegistered) {
             Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();

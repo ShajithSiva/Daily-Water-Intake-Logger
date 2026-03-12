@@ -1,37 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="24dp"
     android:background="#F4F6FA">
 
+    <!-- Space from top -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp"/>
+
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="110dp"
+        android:layout_height="45dp"
+        android:text="⬅ Back"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:backgroundTint="#1565C0"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Title -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="📋 Water Intake History"
-        android:textSize="22sp"
+        android:text="Water Intake History"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="#1565C0"
+        android:gravity="center"
         android:layout_marginBottom="20dp"/>
 
+    <!-- Empty message -->
     <TextView
         android:id="@+id/tvEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No history yet. Start logging water! 💧"
+        android:text="No history yet. Start logging water 💧"
         android:textSize="16sp"
-        android:textColor="#888"
+        android:textColor="#777777"
         android:gravity="center"
         android:padding="40dp"
         android:visibility="gone"/>
 
+    <!-- History List -->
     <ListView
         android:id="@+id/listViewHistory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp"
-        android:dividerHeight="1dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="#DDDDDD"
+        android:dividerHeight="1dp"
+        android:padding="6dp"/>
 
 </LinearLayout>

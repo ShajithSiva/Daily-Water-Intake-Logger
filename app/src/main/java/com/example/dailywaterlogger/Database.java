@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class Database extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "WaterLogger.db";
     private static final int DATABASE_VERSION = 1;
@@ -27,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_DATE = "date";
     private static final String COL_GLASSES = "glasses";
 
-    public DatabaseHelper(Context context) {
+    public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -135,14 +135,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return total;
     }
 
-    // Get history
+    // Get history (latest first)
     public Cursor getWaterHistory(int userId) {
+
         SQLiteDatabase db = this.getReadableDatabase();
 
         return db.rawQuery(
                 "SELECT " + COL_DATE + ", " + COL_GLASSES +
                         " FROM " + TABLE_WATER +
-                        " WHERE " + COL_USER_ID + "=? ORDER BY " + COL_DATE + " DESC",
+                        " WHERE " + COL_USER_ID + "=? " +
+                        "ORDER BY " + COL_INTAKE_ID + " DESC",
                 new String[]{String.valueOf(userId)}
         );
     }

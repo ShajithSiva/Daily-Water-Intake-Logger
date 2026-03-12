@@ -1,83 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="32dp"
-    android:gravity="center_horizontal"
-    android:background="#E3F2FD">
+    android:padding="24dp"
+    android:background="#E9F2FB">
 
+    <!-- Title -->
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log Water Intake"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="#1565C0"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"/>
+        android:gravity="center"
+        android:layout_marginBottom="10dp"/>
 
-    <!-- Progress Indicator -->
+    <!-- Progress text -->
     <TextView
         android:id="@+id/tvTodayProgress"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Today: 0 / 8 glasses"
+        android:text="Today: 0 / 50 glasses"
         android:textSize="16sp"
-        android:textColor="#333"
-        android:layout_marginBottom="8dp"/>
+        android:gravity="center"
+        android:layout_marginBottom="12dp"/>
 
+    <!-- Progress bar -->
     <ProgressBar
         android:id="@+id/progressBarWater"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:max="100"
-        android:progress="0"
-        android:progressTint="#2196F3"
-        android:layout_marginBottom="24dp"/>
+        android:layout_height="8dp"
+        android:layout_marginBottom="30dp"/>
 
+    <!-- Question -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="How many glasses did you drink?"
         android:textSize="16sp"
-        android:textColor="#333"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="10dp"/>
 
+    <!-- Input -->
     <EditText
         android:id="@+id/etGlasses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
         android:hint="Enter number (e.g. 2)"
+        android:inputType="number"
         android:padding="12dp"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="20dp"/>
 
+    <!-- Save button -->
     <Button
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:backgroundTint="#2196F3"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="#1E88E5"
+        android:text="Add Glass"
+        android:textColor="#FFFFFF" />
+
+    <!-- Remove glass button -->
+    <Button
+        android:id="@+id/btnRemove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="REMOVE GLASS"
+        android:backgroundTint="#FB8C00"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="12dp"/>
 
+    <!-- History button -->
     <Button
         android:id="@+id/btnHistory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View History"
+        android:text="VIEW HISTORY"
         android:backgroundTint="#64B5F6"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="12dp"/>
 
+    <!-- Logout button -->
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        android:backgroundTint="#EF9A9A"
+        android:text="LOGOUT"
+        android:backgroundTint="#E57373"
         android:textColor="#FFFFFF"/>
 
 </LinearLayout>

@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextView tvRegister;
 
-    private DatabaseHelper databaseHelper;
+    private Database database;
     private SessionManager sessionManager;
 
     @Override
@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        databaseHelper = new DatabaseHelper(this);
+        database = new Database(this);
         sessionManager = new SessionManager(this);
 
         if (sessionManager.isLoggedIn()) {
@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        int userId = databaseHelper.loginUser(username, hashedPassword);
+        int userId = database.loginUser(username, hashedPassword);
 
         if (userId != -1) {
 

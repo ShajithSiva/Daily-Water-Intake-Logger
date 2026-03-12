@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="32dp"
-            android:hint="Username / Email"
+            android:hint="Username"
             android:padding="16dp"
             android:drawableStart="@android:drawable/ic_dialog_email"
             android:background="@drawable/edittext_bg"

@@ -8,45 +8,65 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LogWaterActivity extends AppCompatActivity {
 
     private EditText etGlasses;
-    private DatabaseHelper databaseHelper;
-    private SessionManager sessionManager;
     private TextView tvTodayProgress;
     private ProgressBar progressBarWater;
-    private int maxGlasses = 8;
+
+    private Database database;
+    private SessionManager sessionManager;
+
+    private final int MAX_GLASSES = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_water);
 
-        databaseHelper = new DatabaseHelper(this);
+        database = new Database(this);
         sessionManager = new SessionManager(this);
+
+        if (!sessionManager.isLoggedIn()) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
 
         etGlasses = findViewById(R.id.etGlasses);
         tvTodayProgress = findViewById(R.id.tvTodayProgress);
         progressBarWater = findViewById(R.id.progressBarWater);
 
-        Button btnSave    = findViewById(R.id.btnSave);
+        Button btnSave = findViewById(R.id.btnSave);
+        Button btnRemove = findViewById(R.id.btnRemove);
         Button btnHistory = findViewById(R.id.btnHistory);
-        Button btnLogout  = findViewById(R.id.btnLogout);
+        Button btnLogout = findViewById(R.id.btnLogout);
 
-        // Show today's progress when screen opens
+        progressBarWater.setMax(100);
+
         updateProgress();
 
         btnSave.setOnClickListener(v -> saveLog());
 
-        btnHistory.setOnClickListener(v ->
-                startActivity(new Intent(this, HistoryActivity.class)));
+        btnRemove.setOnClickListener(v -> removeGlass());
+
+        btnHistory.setOnClickListener(v -> {
+            Intent intent = new Intent(this, HistoryActivity.class);
+            startActivity(intent);
+        });
 
         btnLogout.setOnClickListener(v -> {
+
             sessionManager.logout();
+
+            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
             startActivity(intent);
             finish();
         });
@@ -59,35 +79,83 @@ public class LogWaterActivity extends AppCompatActivity {
     }
 
     private void updateProgress() {
+
         int userId = sessionManager.getUserId();
-        int todayTotal = databaseHelper.getTodayIntake(userId);
-        tvTodayProgress.setText("Today: " + todayTotal + " / " + maxGlasses + " glasses");
-        int progress = (todayTotal * 100) / maxGlasses;
+        int todayTotal = database.getTodayIntake(userId);
+
+        tvTodayProgress.setText("Today: " + todayTotal + " / " + MAX_GLASSES + " glasses");
+
+        int progress = (todayTotal * 100) / MAX_GLASSES;
+
         progressBarWater.setProgress(Math.min(progress, 100));
     }
 
     private void saveLog() {
+
         String glassesStr = etGlasses.getText().toString().trim();
 
         if (TextUtils.isEmpty(glassesStr)) {
-            etGlasses.setError("Please enter number of glasses");
+            etGlasses.setError("Enter number of glasses");
             return;
         }
 
         int glasses = Integer.parseInt(glassesStr);
 
-        if (glasses <= 0 || glasses > 20) {
-            etGlasses.setError("Enter a number between 1 and 20");
+        if (glasses <= 0 || glasses > 50) {
+            etGlasses.setError("Enter value between 1 and 50");
             return;
         }
 
         int userId = sessionManager.getUserId();
-        databaseHelper.addWater(userId, glasses);
+        int todayTotal = database.getTodayIntake(userId);
 
-        Toast.makeText(this, "✅ " + glasses + " glass(es) logged!", Toast.LENGTH_SHORT).show();
+        if (todayTotal + glasses > MAX_GLASSES) {
 
-        // Refresh progress after saving
+            int remaining = MAX_GLASSES - todayTotal;
+
+            Toast.makeText(
+                    this,
+                    "⚠ You can only add " + remaining + " more glasses today",
+                    Toast.LENGTH_LONG
+            ).show();
+
+            return;
+        }
+
+        database.addWater(userId, glasses);
+
+        Toast.makeText(this, glasses + " glass(es) added!", Toast.LENGTH_SHORT).show();
+
         updateProgress();
+
+        etGlasses.setText("");
+    }
+
+    private void removeGlass() {
+
+        String glassesStr = etGlasses.getText().toString().trim();
+
+        if (TextUtils.isEmpty(glassesStr)) {
+            etGlasses.setError("Enter number of glasses");
+            return;
+        }
+
+        int glasses = Integer.parseInt(glassesStr);
+
+        int userId = sessionManager.getUserId();
+        int todayTotal = database.getTodayIntake(userId);
+
+        if (glasses > todayTotal) {
+            Toast.makeText(this, "Cannot remove more than today's total", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        database.addWater(userId, -glasses);
+
+        Toast.makeText(this, glasses + " glass(es) removed!", Toast.LENGTH_SHORT).show();
+
+        updateProgress();
+
         etGlasses.setText("");
     }
 }
